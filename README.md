@@ -134,3 +134,17 @@ requests>=2.26
 scapy>=2.4.5
 psutil>=5.9
 ```
+
+## 📸 Screenshots
+
+### Dashboard
+![Dashboard](Screenshot%20at%202026-03-15%2022-52-59.png)
+
+### Threat Detection
+![Threat Detection](Screenshot%20at%202026-03-15%2022-56-30.png)
+
+### Network Monitoring
+![Network Monitoring](Screenshot%20at%202026-03-15%2022-56-51.png)
+
+### Logs & Alerts
+![Logs](Screenshot%20at%202026-03-15%2022-57-05.png)
