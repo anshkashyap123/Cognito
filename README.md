@@ -1,150 +1,192 @@
-# COGNITO XDR V 1.0
-**Military-Grade Extended Detection & Response — Next Level Edition**
+Paste this in your README.md.
+
+# 🛡️ COGNITO XDR
+
+**Military-Grade Extended Detection & Response System**
+
+Cognito XDR is an advanced cybersecurity monitoring platform designed to detect, analyze, and respond to suspicious network activities in real time using machine learning and threat intelligence.
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Features
 
-### Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### Run (Windows — as Administrator for real capture, normal user for demo)
-```bat
-python cognito_main.py
-```
-
-### Run (Linux/macOS — sudo for real capture)
-```bash
-sudo python cognito_main.py
-# Or without sudo (demo mode):
-python cognito_main.py
-```
-
-> **Demo mode** runs automatically without admin/root privileges — full UI with realistic simulated traffic and attacks.
+- 🔍 Real-time network packet monitoring
+- 🧠 Machine Learning anomaly detection
+- 🚨 Automatic threat detection & alerting
+- 🔒 Automatic malicious IP blocking
+- 🌍 Threat intelligence integration
+- 📊 Traffic analytics dashboard
+- 🖥️ System resource monitoring
+- ⚙️ Configurable security thresholds
+- 📜 Detailed threat logs
+- 📈 Security score evaluation
 
 ---
 
-## ✨ What's New in v3.0
+## 🏗️ Architecture
 
-### 🛡 Detection Engine (7 threat types)
-| Threat Type         | Method              | Severity |
-|---------------------|---------------------|----------|
-| Known Malicious IP  | Threat Intel Feeds  | CRITICAL |
-| DDoS Flood          | Packet rate counter | CRITICAL |
-| Port Scan           | Unique port counter | HIGH     |
-| Brute Force         | Auth port hit count | HIGH     |
-| ML Anomaly          | IsolationForest+LOF | HIGH     |
-| C2 Beaconing        | Interval variance   | HIGH     |
-| Lateral Movement    | Admin port tracking | MEDIUM   |
-| Data Exfiltration   | Byte volume         | MEDIUM   |
 
-### 🧠 ML Detector v2
-- **Dual-model ensemble**: IsolationForest + Local Outlier Factor (majority vote)
-- **5-feature extraction**: packet size, protocol, port, port risk, time-of-day
-- **Auto-retraining** every 300 live packets with bounded sliding window
-- **Separate StandardScaler** fitted jointly for both models
+Network Traffic
+│
+▼
+Packet Sniffer Engine
+│
+▼
+Feature Extractor
+│
+▼
+ML Anomaly Detector
+│
+▼
+Threat Engine
+│
+├── Threat Logs
+├── Block IP Module
+└── Analytics Dashboard
 
-### 📡 Threat Intelligence
-- 3 live feeds: Feodo Tracker, ipsum, Emerging Threats
-- Background loading + disk cache for instant startup
-- Auto-refresh every 60 minutes
-- Feed status visible in sidebar
-
-### 📊 7-Page Premium Dashboard
-0. **Dashboard** — Live stats, score ring, dual-axis graph, protocol donut, activity timeline
-1. **Threats** — Full table with search/filter/sort, export to JSON
-2. **Blocked IPs** — Unblock individual/all, manual block dialog, whitelist manager
-3. **Analytics** — Top IPs, ports, countries, threat type distribution
-4. **System** — CPU/RAM/disk/network monitoring with live graphs
-5. **Logs** — Rich HTML threat log, save to file, reload from disk
-6. **Settings** — Adjustable thresholds, runtime toggles, danger zone
-
-### 🎨 Premium Theme
-- Deep navy cyberpunk palette with electric cyan accent
-- Animated blinking status dot
-- Security Score ring widget with arc rendering
-- Stacked severity bar charts
-- Dual-axis matplotlib live graph (pkt/s + KB/s)
-- Protocol donut chart
-- Threat timeline stacked bar chart
-- Smooth progress bars with gradient fill
-- Custom scrollbar styling throughout
-
-### 🖥 Cross-Platform
-| Feature           | Windows        | Linux           | macOS      |
-|-------------------|----------------|-----------------|------------|
-| Real packet capture | ✅ netsh       | ✅ iptables     | ✅ pfctl   |
-| Firewall blocking | ✅ netsh       | ✅ iptables     | ✅ pfctl   |
-| Demo simulation   | ✅             | ✅              | ✅         |
-| System monitor    | ✅ psutil      | ✅ psutil       | ✅ psutil  |
 
 ---
-
-## 📁 Project Structure
-```
-cognito_main.py           Entry point + splash screen + dependency check
-requirements.txt          All Python dependencies
-core/
-  cognito_sniffer.py      Packet capture + rich demo simulation
-  threat_engine.py        8-type threat detection engine
-  ml_detector.py          IsolationForest + LOF ensemble
-  threat_intel.py         3-feed intel with cache + auto-refresh
-  firewall.py             Cross-platform IP blocking (Windows/Linux/macOS)
-  system_monitor.py       CPU / RAM / disk / network via psutil
-gui/
-  cognito_dashboard.py    7-page premium dashboard
-  graph_widget.py         5 matplotlib chart widgets
-  theme.py                Global color palette + stylesheet helpers
-logs/
-  threat_log.json         Append-only threat events (JSON-lines)
-  threat_intel_cache.json Cached malicious IP list
-  cognito_session.log     Session log export
-```
-
----
-
-## ⚙ Configuration
-All detection thresholds are adjustable live from the **Settings** page:
-- DDoS threshold (default: 500 packets/IP)
-- Port scan threshold (default: 18 unique ports)
-- Brute force threshold (default: 30 attempts)
-
----
-
-## 🔒 Permissions
-| Mode           | Windows       | Linux/macOS  |
-|----------------|---------------|--------------|
-| Demo / UI only | Normal user   | Normal user  |
-| Real capture   | Administrator | root / sudo  |
-| Firewall block | Administrator | root / sudo  |
-
-Without elevated permissions COGNITO automatically falls back to demo simulation mode — the full UI works including threat detection, ML, scoring, and all pages.
-
----
-
-## 📦 Requirements
-```
-PyQt5>=5.15
-matplotlib>=3.5
-scikit-learn>=1.0
-numpy>=1.21
-requests>=2.26
-scapy>=2.4.5
-psutil>=5.9
-```
 
 ## 📸 Screenshots
 
-### Dashboard
+### 🖥️ Dashboard
 ![Dashboard](Screenshot%20at%202026-03-15%2022-52-59.png)
 
-### Threat Detection
-![Threat Detection](Screenshot%20at%202026-03-15%2022-56-30.png)
+Real-time overview of network activity including packets, threats, blocked IPs, and bandwidth.
 
-### Network Monitoring
-![Network Monitoring](Screenshot%20at%202026-03-15%2022-56-51.png)
+---
 
-### Logs & Alerts
-![Logs](Screenshot%20at%202026-03-15%2022-57-05.png)
+### 🚨 Threat Events
+![Threat Events](Screenshot%20at%202026-03-15%2022-55-49.png)
+
+Displays detected suspicious activities with severity classification.
+
+---
+
+### 🔒 Blocked IPs
+![Blocked IPs](Screenshot%20at%202026-03-15%2022-56-30.png)
+
+Automatically blocks malicious IP addresses detected by the ML engine.
+
+---
+
+### 📊 Traffic Analytics
+![Traffic Analytics](Screenshot%20at%202026-03-15%2022-56-38.png)
+
+Top source IPs, destination ports, and countries generating traffic.
+
+---
+
+### 🖥️ System Monitor
+![System Monitor](Screenshot%20at%202026-03-15%2022-56-45.png)
+
+Shows CPU, RAM, disk usage and network throughput.
+
+---
+
+### 📜 Threat Logs
+![Logs](Screenshot%20at%202026-03-15%2022-56-51.png)
+
+Real-time anomaly detection logs.
+
+---
+
+### ⚙️ Settings
+![Settings](Screenshot%20at%202026-03-15%2022-56-58.png)
+
+Configure detection thresholds and system behavior.
+
+---
+
+## ⚡ Installation
+
+Clone the repository:
+
+
+git clone https://github.com/anshkashyap123/Cognito.git
+
+cd Cognito
+
+
+Install dependencies:
+
+
+pip install -r requirements.txt
+
+
+---
+
+## ▶️ Running the System
+
+### Linux / macOS
+
+
+sudo python cognito_main.py
+
+
+### Demo Mode
+
+
+python cognito_main.py
+
+
+---
+
+## 🧠 Machine Learning Engine
+
+Cognito uses anomaly detection algorithms such as:
+
+- Isolation Forest
+- Local Outlier Factor (LOF)
+
+These models analyze network behavior to detect suspicious traffic patterns.
+
+---
+
+## 🛡️ Security Modules
+
+| Module | Description |
+|------|-------------|
+| Packet Sniffer | Captures live network packets |
+| ML Detector | Detects anomalies |
+| Threat Engine | Classifies threats |
+| Firewall Module | Blocks malicious IPs |
+| Analytics Engine | Visualizes traffic patterns |
+
+---
+
+## 📊 Security Score
+
+The security score evaluates system risk based on:
+
+- Threat severity
+- Frequency of anomalies
+- Active suspicious connections
+- Blocked malicious IPs
+
+---
+
+## 🔮 Future Improvements
+
+- AI threat classification
+- Web-based dashboard
+- Distributed monitoring agents
+- Cloud threat intelligence integration
+- Automated incident response
+
+---
+
+## 👨‍💻 Author
+
+**Ansh Kashyap**
+
+Cybersecurity enthusiast & BCA student.
+
+GitHub:
+https://github.com/anshkashyap123
+
+---
+
+## 📜 License
+
+This project is released under the MIT License.
