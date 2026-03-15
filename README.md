@@ -9,7 +9,7 @@
  ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝   ╚═╝    ╚═════╝ 
 ```
 
-**Military-Grade Extended Detection & Response — v3.0**
+**Military-Grade Extended Detection & Response — v1.0**
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
 [![PyQt5](https://img.shields.io/badge/GUI-PyQt5-41CD52?style=flat-square&logo=qt)](https://riverbankcomputing.com/software/pyqt/)
@@ -40,15 +40,15 @@ Designed for security researchers, homelab enthusiasts, and network administrato
 
 | Blocked IPs | Traffic Analytics |
 |-------------|------------------|
-| ![Blocked](assets/screenshots/blocked_ips.png) | ![Analytics](assets/screenshots/analytics.png) |
+| ![Blocked](assets/screenshots/blocked_ips) | ![Analytics](assets/screenshots/analytics) |
 
 | System Monitor | Threat Logs |
 |---------------|-------------|
-| ![System](assets/screenshots/system_monitor) | ![Logs](assets/screenshots/logs.png) |
+| ![System](assets/screenshots/system_monitor) | ![Logs](assets/screenshots/logs) |
 
 | Settings |
 |----------|
-| ![Settings](assets/screenshots/settings.png) |
+| ![Settings](assets/screenshots/settings) |
 
 ---
 
@@ -288,6 +288,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 Built with Python, PyQt5, scikit-learn, and Scapy.
 
-**COGNITO XDR v3.0 — Alpha Build**
+**COGNITO XDR v1.0 — Alpha Build**
 
 </div>
