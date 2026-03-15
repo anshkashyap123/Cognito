@@ -36,7 +36,7 @@ Designed for security researchers, homelab enthusiasts, and network administrato
 
 | Dashboard | Threat Events |
 |-----------|---------------|
-| ![Dashboard](assets/screenshots/dashboard.png) | ![Threats](assets/screenshots/threats.png) |
+| ![Dashboard](assets/screenshots/dashboard) | ![Threats](assets/screenshots/threats) |
 
 | Blocked IPs | Traffic Analytics |
 |-------------|------------------|
@@ -44,7 +44,7 @@ Designed for security researchers, homelab enthusiasts, and network administrato
 
 | System Monitor | Threat Logs |
 |---------------|-------------|
-| ![System](assets/screenshots/system_monitor.png) | ![Logs](assets/screenshots/logs.png) |
+| ![System](assets/screenshots/system_monitor) | ![Logs](assets/screenshots/logs.png) |
 
 | Settings |
 |----------|
