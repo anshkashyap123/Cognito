@@ -36,15 +36,19 @@ Designed for security researchers, homelab enthusiasts, and network administrato
 
 | Dashboard | Threat Events |
 |-----------|---------------|
-| ![Dashboard](screenshots/dashboard.png) | ![Threats](screenshots/threats.png) |
+| ![Dashboard](assets/screenshots/dashboard.png) | ![Threats](assets/screenshots/threats.png) |
 
-| Blocked IPs | Analytics |
-|-------------|-----------|
-| ![Blocked](screenshots/blocked_ips.png) | ![Analytics](screenshots/analytics.png) |
+| Blocked IPs | Traffic Analytics |
+|-------------|------------------|
+| ![Blocked](assets/screenshots/blocked_ips.png) | ![Analytics](assets/screenshots/analytics.png) |
 
-| System Monitor | Logs |
-|----------------|------|
-| ![System](screenshots/system.png) | ![Logs](screenshots/logs.png) |
+| System Monitor | Threat Logs |
+|---------------|-------------|
+| ![System](assets/screenshots/system_monitor.png) | ![Logs](assets/screenshots/logs.png) |
+
+| Settings |
+|----------|
+| ![Settings](assets/screenshots/settings.png) |
 
 ---
 
