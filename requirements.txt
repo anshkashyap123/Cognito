@@ -1,0 +1,12 @@
+PyQt5>=5.15
+PyQtWebEngine>=5.15
+matplotlib>=3.5
+scikit-learn>=1.0
+numpy>=1.21
+requests>=2.26
+scapy>=2.4.5
+pyqtgraph>=0.13
+psutil>=5.9
+geoip2>=4.6
+maxminddb>=2.2
+colorama>=0.4
