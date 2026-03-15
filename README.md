@@ -1,4 +1,4 @@
-# COGNITO XDR v3.0
+# COGNITO XDR V 1.0
 **Military-Grade Extended Detection & Response — Next Level Edition**
 
 ---
