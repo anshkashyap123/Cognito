@@ -1,192 +1,289 @@
-Paste this in your README.md.
+<div align="center">
 
-# 🛡️ COGNITO XDR
+```
+ ██████╗ ██████╗  ██████╗ ███╗   ██╗██╗████████╗ ██████╗ 
+██╔════╝██╔═══██╗██╔════╝ ████╗  ██║██║╚══██╔══╝██╔═══██╗
+██║     ██║   ██║██║  ███╗██╔██╗ ██║██║   ██║   ██║   ██║
+██║     ██║   ██║██║   ██║██║╚██╗██║██║   ██║   ██║   ██║
+╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║██║   ██║   ╚██████╔╝
+ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝   ╚═╝    ╚═════╝ 
+```
 
-**Military-Grade Extended Detection & Response System**
+**Military-Grade Extended Detection & Response — v3.0**
 
-Cognito XDR is an advanced cybersecurity monitoring platform designed to detect, analyze, and respond to suspicious network activities in real time using machine learning and threat intelligence.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
+[![PyQt5](https://img.shields.io/badge/GUI-PyQt5-41CD52?style=flat-square&logo=qt)](https://riverbankcomputing.com/software/pyqt/)
+[![scikit-learn](https://img.shields.io/badge/ML-scikit--learn-F7931E?style=flat-square&logo=scikit-learn)](https://scikit-learn.org/)
+[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey?style=flat-square)]()
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)]()
+[![Status](https://img.shields.io/badge/Status-Alpha%20Build-orange?style=flat-square)]()
+
+*Real-time network threat detection powered by ML anomaly analysis, live packet sniffing, and cross-platform firewall enforcement.*
+
+</div>
 
 ---
 
-## 🚀 Features
+## Overview
 
-- 🔍 Real-time network packet monitoring
-- 🧠 Machine Learning anomaly detection
-- 🚨 Automatic threat detection & alerting
-- 🔒 Automatic malicious IP blocking
-- 🌍 Threat intelligence integration
-- 📊 Traffic analytics dashboard
-- 🖥️ System resource monitoring
-- ⚙️ Configurable security thresholds
-- 📜 Detailed threat logs
-- 📈 Security score evaluation
+**COGNITO** is an open-source Extended Detection and Response (XDR) platform built in Python. It monitors live network traffic, detects anomalies using a machine learning ensemble (Isolation Forest + Local Outlier Factor), cross-references IPs against real-world threat intelligence feeds, and automatically blocks malicious actors at the OS firewall level — all from a sleek dark-mode GUI dashboard.
+
+Designed for security researchers, homelab enthusiasts, and network administrators who want actionable threat visibility without enterprise-level complexity.
 
 ---
 
-## 🏗️ Architecture
+## Screenshots
 
+| Dashboard | Threat Events |
+|-----------|---------------|
+| ![Dashboard](screenshots/dashboard.png) | ![Threats](screenshots/threats.png) |
 
-Network Traffic
+| Blocked IPs | Analytics |
+|-------------|-----------|
+| ![Blocked](screenshots/blocked_ips.png) | ![Analytics](screenshots/analytics.png) |
+
+| System Monitor | Logs |
+|----------------|------|
+| ![System](screenshots/system.png) | ![Logs](screenshots/logs.png) |
+
+---
+
+## Features
+
+### 🔍 Real-Time Detection Engine
+- **Live packet sniffing** via Scapy with automatic fallback to demo simulation mode
+- **DDoS detection** — per-IP packet rate and total volume thresholds
+- **Port scan detection** — tracks unique destination ports per source IP
+- **Brute-force detection** — monitors repeated hits on auth ports (SSH, RDP, FTP, etc.)
+- **DNS tunneling detection** — flags suspiciously long or high-frequency DNS queries
+- **Beaconing detection** — identifies C2 callback patterns using time-windowed regularity analysis
+- **Data exfiltration detection** — alerts on excessive outbound byte volume per IP
+- **Lateral movement detection** — watches for internal scanning of SMB, RDP, WinRM, and SSH ports
+
+### 🤖 ML Anomaly Detection
+- **Ensemble model**: Isolation Forest + Local Outlier Factor vote-based scoring
+- **Feature vector**: packet size, protocol, destination port, port risk score, and time-of-day
+- **Continuous retraining** on clean traffic for adaptive baselines
+- Operates fully offline — no cloud dependency
+
+### 🌐 Threat Intelligence
+- Aggregates **3 live blocklists**: Feodo Tracker, ipsum, and Emerging Threats
+- Loads **700,000+ known malicious IPs** on startup from disk cache
+- Background refresh every hour with JSON cache persistence
+- Instant IP reputation lookup on every captured packet
+
+### 🔥 Cross-Platform Firewall
+- **Linux**: `iptables -I INPUT -s <ip> -j DROP`
+- **Windows**: `netsh advfirewall` rule injection
+- **macOS**: `pfctl` integration
+- One-click block/unblock from the GUI, with whitelist (trusted IP) support
+
+### 📊 Dashboard & GUI
+- **Network Overview**: live status bar — packets, bandwidth, threats, blocked IPs, active connections
+- **Security Score**: 0–100 composite score degraded by threat severity weights
+- **Protocol Breakdown**: real-time donut chart (TCP / UDP / ICMP / ARP)
+- **Live Packet Rate**: dual-axis time-series chart (pkt/s + KB/s)
+- **Threat Activity Timeline**: bar chart of threats over time
+- **Traffic Analytics**: top source IPs, top destination ports, top countries, threat type distribution
+- **System Monitor**: CPU, RAM, disk, network I/O with 60-second rolling history chart
+- **ML Detector Status**: live model health, check count, anomaly count, retrain counter
+- **Threat Log**: timestamped event stream with save/load to JSON
+
+---
+
+## Architecture
+
+```
+cognito_main.py          ← Entry point, splash screen, dependency checks
 │
-▼
-Packet Sniffer Engine
+├── gui/
+│   ├── cognito_dashboard.py   ← Main PyQt5 window, all UI views
+│   ├── graph_widget.py        ← Custom pyqtgraph / matplotlib widgets
+│   └── theme.py               ← Global dark-mode color constants
 │
-▼
-Feature Extractor
+├── core/
+│   ├── cognito_sniffer.py     ← Scapy packet capture + demo simulation
+│   ├── threat_engine.py       ← Detection rules: DDoS, scan, brute, beacon, exfil, lateral
+│   ├── ml_detector.py         ← IsolationForest + LOF ensemble anomaly scorer
+│   ├── threat_intel.py        ← Multi-feed IP blocklist aggregator with caching
+│   ├── firewall.py            ← Cross-platform block/unblock via OS firewall
+│   └── system_monitor.py      ← psutil CPU / RAM / disk / network I/O polling
 │
-▼
-ML Anomaly Detector
-│
-▼
-Threat Engine
-│
-├── Threat Logs
-├── Block IP Module
-└── Analytics Dashboard
-
+└── logs/
+    ├── threat_log.json        ← Persistent threat event log
+    └── threat_intel_cache.json ← Cached threat intelligence IP sets
+```
 
 ---
 
-## 📸 Screenshots
+## Requirements
 
-### 🖥️ Dashboard
-![Dashboard](Screenshot%20at%202026-03-15%2022-52-59.png)
-
-Real-time overview of network activity including packets, threats, blocked IPs, and bandwidth.
-
----
-
-### 🚨 Threat Events
-![Threat Events](Screenshot%20at%202026-03-15%2022-55-49.png)
-
-Displays detected suspicious activities with severity classification.
-
----
-
-### 🔒 Blocked IPs
-![Blocked IPs](Screenshot%20at%202026-03-15%2022-56-30.png)
-
-Automatically blocks malicious IP addresses detected by the ML engine.
+| Dependency | Purpose |
+|---|---|
+| `PyQt5 >= 5.15` | GUI framework |
+| `pyqtgraph >= 0.13` | Live graph widgets |
+| `matplotlib >= 3.5` | Chart rendering |
+| `scikit-learn >= 1.0` | ML anomaly detection |
+| `numpy >= 1.21` | Numerical feature processing |
+| `scapy >= 2.4.5` | Packet capture |
+| `psutil >= 5.9` | System resource monitoring |
+| `requests >= 2.26` | Threat intelligence feed fetching |
+| `geoip2 >= 4.6` | IP geolocation |
+| `maxminddb >= 2.2` | MaxMind DB reader |
+| `colorama >= 0.4` | Terminal color output |
 
 ---
 
-### 📊 Traffic Analytics
-![Traffic Analytics](Screenshot%20at%202026-03-15%2022-56-38.png)
+## Installation
 
-Top source IPs, destination ports, and countries generating traffic.
+### 1. Clone the repository
 
----
+```bash
+git clone https://github.com/yourusername/COGNITO.git
+cd COGNITO
+```
 
-### 🖥️ System Monitor
-![System Monitor](Screenshot%20at%202026-03-15%2022-56-45.png)
+### 2. Install dependencies
 
-Shows CPU, RAM, disk usage and network throughput.
-
----
-
-### 📜 Threat Logs
-![Logs](Screenshot%20at%202026-03-15%2022-56-51.png)
-
-Real-time anomaly detection logs.
-
----
-
-### ⚙️ Settings
-![Settings](Screenshot%20at%202026-03-15%2022-56-58.png)
-
-Configure detection thresholds and system behavior.
-
----
-
-## ⚡ Installation
-
-Clone the repository:
-
-
-git clone https://github.com/anshkashyap123/Cognito.git
-
-cd Cognito
-
-
-Install dependencies:
-
-
+```bash
 pip install -r requirements.txt
+```
 
+### 3. Run COGNITO
 
----
+Live capture mode requires root/admin privileges for raw socket access:
 
-## ▶️ Running the System
+```bash
+# Linux / macOS
+sudo python3 cognito_main.py
 
-### Linux / macOS
-
-
-sudo python cognito_main.py
-
-
-### Demo Mode
-
-
+# Windows (run as Administrator)
 python cognito_main.py
+```
 
-
----
-
-## 🧠 Machine Learning Engine
-
-Cognito uses anomaly detection algorithms such as:
-
-- Isolation Forest
-- Local Outlier Factor (LOF)
-
-These models analyze network behavior to detect suspicious traffic patterns.
+**No root? No problem.** COGNITO automatically detects missing privileges and launches in **Demo Mode** — full GUI with realistic simulated traffic, ML detection, and all features active.
 
 ---
 
-## 🛡️ Security Modules
+## Usage
 
-| Module | Description |
-|------|-------------|
-| Packet Sniffer | Captures live network packets |
-| ML Detector | Detects anomalies |
-| Threat Engine | Classifies threats |
-| Firewall Module | Blocks malicious IPs |
-| Analytics Engine | Visualizes traffic patterns |
+### Starting Protection
 
----
+1. Launch COGNITO — the dashboard opens in **IDLE** state
+2. Click **START PROTECTION** in the top-right of the dashboard
+3. Status changes to **RUNNING** — live packet capture begins
+4. Threats are detected, logged, and blocked automatically if auto-block is enabled
 
-## 📊 Security Score
+### Detection Thresholds (Settings)
 
-The security score evaluates system risk based on:
+| Parameter | Default | Description |
+|---|---|---|
+| DDoS Threshold | 500 packets/IP | Total packets before an IP is flagged as DDoS |
+| Port Scan Threshold | 18 unique ports | Unique destination ports before flagging a scan |
+| Brute Force Threshold | 30 attempts | Auth-port hits before flagging brute force |
 
-- Threat severity
-- Frequency of anomalies
-- Active suspicious connections
-- Blocked malicious IPs
+Thresholds are adjustable live from **Settings → Detection Thresholds → Apply**.
 
----
+### Runtime Options
 
-## 🔮 Future Improvements
+- **Auto-block on CRITICAL threats** — automatically calls `block_ip()` for critical severity events
+- **Enable ML anomaly detection** — toggle the IsolationForest + LOF ensemble
+- **Enable threat intelligence feeds** — cross-reference every IP against blocklists
+- **Enable system monitor** — activate CPU/RAM/disk telemetry panel
 
-- AI threat classification
-- Web-based dashboard
-- Distributed monitoring agents
-- Cloud threat intelligence integration
-- Automated incident response
+### Whitelist / Trusted IPs
 
----
-
-## 👨‍💻 Author
-
-**Ansh Kashyap**
-
-Cybersecurity enthusiast & BCA student.
-
-GitHub:
-https://github.com/anshkashyap123
+Navigate to **Blocked IPs** and use the **Whitelist** panel on the right to add trusted IPs that should never be blocked (e.g. your router, local servers).
 
 ---
 
-## 📜 License
+## Demo Mode
 
-This project is released under the MIT License.
+If Scapy is unavailable or COGNITO is run without root, it enters **Demo Mode** automatically:
+
+- Realistic synthetic traffic is generated using common IP ranges and protocols
+- ML detection, threat scoring, IP blocking, and all UI features remain fully functional
+- Ideal for testing, development, or showcasing without network access
+
+---
+
+## Security Score
+
+The security score (0–100) is computed in real time:
+
+```
+score = max(0, 100 − Σ(threat_count × severity_weight))
+
+Severity weights:
+  CRITICAL → 15 pts
+  HIGH     →  8 pts
+  MEDIUM   →  4 pts
+  LOW      →  1 pt
+```
+
+A score of **100** means no active threats. As threats are detected, the score degrades. Blocking threats and clearing logs restores the score.
+
+---
+
+## Threat Intelligence Feeds
+
+COGNITO aggregates the following open-source blocklists on startup:
+
+| Feed | Source |
+|---|---|
+| Feodo Tracker | `feodotracker.abuse.ch` — banking trojan / botnet C2 IPs |
+| ipsum | `github.com/stamparm/ipsum` — crowd-sourced malicious IPs |
+| Emerging Threats | `rules.emergingthreats.net` — compromised host IPs |
+
+Feeds are cached to `logs/threat_intel_cache.json` and refreshed every hour in the background.
+
+---
+
+## Contributing
+
+Contributions are welcome. To get started:
+
+```bash
+git checkout -b feature/your-feature-name
+# make your changes
+git commit -m "feat: describe your change"
+git push origin feature/your-feature-name
+```
+
+Then open a Pull Request. Please follow existing code style and add comments for any new detection logic.
+
+---
+
+## Roadmap
+
+- [ ] GeoIP map visualization (country-level threat heatmap)
+- [ ] PCAP export / import for offline analysis
+- [ ] Custom detection rule editor (YAML-based)
+- [ ] Email / webhook alerting for critical threats
+- [ ] Suricata / Zeek log ingestion
+- [ ] Docker container support
+- [ ] Windows tray icon & background service mode
+
+---
+
+## Disclaimer
+
+COGNITO is intended for **authorized use only** on networks and systems you own or have explicit permission to monitor. The firewall blocking feature modifies OS-level firewall rules. Use responsibly.
+
+The authors are not responsible for any misuse, damage, or unintended consequences arising from the use of this software.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+
+Built with Python, PyQt5, scikit-learn, and Scapy.
+
+**COGNITO XDR v3.0 — Alpha Build**
+
+</div>
