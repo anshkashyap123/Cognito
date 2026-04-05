@@ -243,6 +243,18 @@ Feeds are cached to `logs/threat_intel_cache.json` and refreshed every hour in t
 
 ---
 
+## Contributors
+
+Thanks to the following people who have contributed to this project:
+
+| Name | Role |
+|---|---|
+| **Ansh** | Contributor |
+| **Hridyanshu Khattar** | Contributor |
+| **Prateek Singh** | Contributor |
+
+---
+
 ## Contributing
 
 Contributions are welcome. To get started:
